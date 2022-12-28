@@ -1,0 +1,248 @@
+openapi: 3.0.0
+info:
+  title: Books API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://cute-cyan-raven-tutu.cyclic.app/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: beta
+                  email: beta@gmail.com
+                  password: secretbeta
+            example:
+              name: beta
+              email: beta@gmail.com
+              password: secretbeta
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: alpha@gmail.com
+                  password: secretalpha
+            example:
+              email: alpha@gmail.com
+              password: secretalpha
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /books:
+    post:
+      tags:
+      - Books
+      summary: Create book
+      operationId: Createbook
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreatebookRequest'
+              - example:
+                  title: alpha power
+                  page: 98
+            example:
+              title: alpha power
+              page: 98
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Books
+      summary: get all books
+      operationId: getallbooks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /books/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Book ID
+    get:
+      tags:
+      - Books
+      summary: Get Single Book
+      operationId: GetSingleBook
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Books
+      summary: Delete Book
+      operationId: DeleteBook
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Books
+      summary: Update Book
+      operationId: UpdateBook
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateBookRequest'
+              - example:
+                  title: beta super power
+                  page: 96
+                  status: sudah
+            example:
+              title: beta super power
+              page: 96
+              status: sudah
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: beta
+        email: beta@gmail.com
+        password: secretbeta
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: alpha@gmail.com
+        password: secretalpha
+    CreatebookRequest:
+      title: CreatebookRequest
+      required:
+      - title
+      - page
+      type: object
+      properties:
+        title:
+          type: string
+        page:
+          type: integer
+          format: int32
+      example:
+        title: alpha power
+        page: 98
+    UpdateBookRequest:
+      title: UpdateBookRequest
+      required:
+      - title
+      - page
+      - status
+      type: object
+      properties:
+        title:
+          type: string
+        page:
+          type: integer
+          format: int32
+        status:
+          type: string
+      example:
+        title: beta super power
+        page: 96
+        status: sudah
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+
+- name: Auth
+  description: ''
+- name: Books
+  description: ''
